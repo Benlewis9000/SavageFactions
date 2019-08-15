@@ -434,7 +434,7 @@ public abstract class MemoryFPlayer implements FPlayer {
     }
 
     public String getTag() {
-        return this.hasFaction() ? this.getFaction().getTag() : "";
+        return this.hasFaction() ? this.getFaction().getTag().substring(0,3) + ".." : "";
     }
 
     // Colored concatenations:
@@ -468,8 +468,14 @@ public abstract class MemoryFPlayer implements FPlayer {
         return this.getColorTo(fplayer) + this.getNameAndTitle();
     }
 
-    public String getChatTag() {
-        return this.hasFaction() ? String.format(Conf.chatTagFormat, this.getRole().getPrefix() + this.getTag()) : TL.NOFACTION_PREFIX.toString();
+    /* INCIDIA MODIFICATION */
+
+    /**
+     * Returns Tag to 3 CHARS + ".." if > 3, as per Incidia modification
+     * @return Tag to 3 CHARS + ".." if > 3, as per Incidia modification
+     */
+    public String getChatTag() {                                                                   // Modification = ()?: check for >3, .subString(0,3)+".."
+        return this.hasFaction() ? String.format(Conf.chatTagFormat, this.getRole().getPrefix() + (this.getTag().length() > 3 ? this.getTag().substring(0,3) + ".." : this.getTag())) : TL.NOFACTION_PREFIX.toString();
     }
 
     // Colored Chat Tag
